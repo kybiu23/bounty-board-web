@@ -1,5 +1,5 @@
 -- Users Table
-CREATE TABLE Users (
+CREATE TABLE user (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Users (
 );
 
 -- Posts Table
-CREATE TABLE Posts (
+CREATE TABLE post (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     body TEXT NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Posts (
 );
 
 -- Comment Table
-CREATE TABLE Comment (
+CREATE TABLE comment (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES Users(id),
     type VARCHAR(50) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE Comment (
 );
 
 -- Subreddit Table
-CREATE TABLE Subreddit (
+CREATE TABLE sub_reddit (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
