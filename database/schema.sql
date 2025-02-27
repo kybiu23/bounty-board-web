@@ -28,7 +28,7 @@ CREATE TABLE post (
 -- Comment Table
 CREATE TABLE comment (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES Users(id),
+    user_id INTEGER NOT NULL REFERENCES User(id),
     type VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     read_status BOOLEAN DEFAULT FALSE,

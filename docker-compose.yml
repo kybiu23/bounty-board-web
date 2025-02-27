@@ -8,3 +8,34 @@ services:
       - "5432:5432"
     volumes:
       - ./database/volumes/postgres/17/data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - bountyboard-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:1@postgres:5432/postgres
+      - DEBUG=True
+      - SECRET_KEY=development_secret_key_change_in_production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bountyboard-network
+    command: python manage.py runserver 0.0.0.0:8000
+
+networks:
+  bountyboard-network:
+    driver: bridge
