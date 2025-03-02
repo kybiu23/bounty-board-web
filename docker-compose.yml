@@ -8,7 +8,6 @@ services:
       - "5432:5432"
     volumes:
       - ./database/volumes/postgres/17/data:/var/lib/postgresql/data
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - bountyboard-network
     healthcheck:

@@ -22,13 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p1)nmsd)l2v$&c+a7g_-w)m4euf=uarlt^x5+#*rqa6p-k=qx*'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-p1)nmsd)l2v$&c+a7g_-w)m4euf=uarlt^x5+#*rqa6p-k=qx*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']  # Adjust for production
 
+# Replace the default AUTH_USER_MODEL with custom User model
+AUTH_USER_MODEL = 'api.User'
 
 # Application definition
 
@@ -136,5 +138,58 @@ CORS_ALLOW_ALL_ORIGINS = True  # Change for production
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
+
+# Reddit API settings
+# REDDIT_CLIENT_ID = os.environ.get('REDDIT_CLIENT_ID', 'ZdHLafxpZo6OtKIIn0uPOA')
+# REDDIT_CLIENT_SECRET = os.environ.get('REDDIT_CLIENT_SECRET', 'PZRwrx8xwktG1-LZIGrpYZGl2oqNpg')
+# REDDIT_USER_AGENT = os.environ.get('REDDIT_USER_AGENT', 'fr.allaboutfrance:v1.0 (by /u/One-Accountant2011)')
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+        'api': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+# Create logs directory if it doesn't exist
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)

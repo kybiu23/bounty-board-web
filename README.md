@@ -32,9 +32,15 @@ docker-compose up -d
 ```
 
 3. Apply Django migrations:
-```bash
-docker-compose exec web python manage.py migrate
-```
+    ```bash
+    docker-compose exec web python manage.py migrate
+    ```
+
+    If there are changes in the models, you need to create and apply migrations:
+    ```bash
+    docker-compose exec web python manage.py makemigrations
+    docker-compose exec web python manage.py migrate
+    ```
 
 4. Create a superuser for the Django admin:
 ```bash
@@ -47,17 +53,7 @@ docker-compose exec web python manage.py createsuperuser
 
 ## Database Structure
 
-The application uses PostgreSQL with the following schema:
-
-- **Users**: User accounts and authentication information
-- **Posts**: Reddit posts collected by the crawler
-- **Comments**: User comments and notifications
-- **Subreddits**: List of subreddits to monitor
-
-You can inspect the database using:
-```bash
-docker-compose exec postgres psql -U postgres -c "\dt"
-```
+For detailed information on the database structure, please refer to the [Database Structure](DATABASE_STRUCTURE.md) document.
 
 ## API Endpoints
 
@@ -133,8 +129,6 @@ For production deployment:
 
 ## License
 
-[Add your license information here]
+This project is licensed under the MIT License.
 
-## Contributing
-
-[Add contribution guidelines here]
+MIT License  Copyright (c) 2024 BountyBoard  Permission is hereby granted associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
