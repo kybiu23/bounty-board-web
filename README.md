@@ -100,7 +100,7 @@ docker-compose up -d
 ```
 
 ## Project Structure
-
+For detailed information about the project structure, please refer to the [Project Structure](PROJECT_STRUCTURE.md) document.
 ```
 bountyboard/
 ├── backend/
@@ -126,6 +126,20 @@ For production deployment:
 4. Configure secure database passwords
 5. Set up HTTPS with a reverse proxy (Nginx recommended)
 6. Configure proper CORS settings
+
+## SSH Access
+
+To access the server via SSH, use the following command:
+
+```sh
+ssh <username>@35.188.16.69
+```
+
+insert test data
+```sh
+cat test_data.sql | docker exec -i bounty-board-web-postgres-1 psql -U postgres -d postgres
+```
+
 
 ## License
 
