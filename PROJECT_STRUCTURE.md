@@ -1,4 +1,31 @@
 ## Project Structure
+```
+bountyboard/
+├── backend/            # Your existing Django code
+│   ├── api/
+│   ├── bountyboard/
+│   ├── manage.py
+│   └── ...
+├── frontend/           # New React frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AuthComponent.jsx
+│   │   │   ├── Homepage.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── PostDetailPage.jsx
+│   │   │   ├── PremiumUpgradePage.jsx
+│   │   │   ├── ProfilePage.jsx
+│   │   │   └── SubmitPostPage.jsx
+│   │   ├── App.jsx
+│   │   ├── index.js
+│   │   └── index.css
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── .dockerignore
+├── docker-compose.yml  # Updated Docker Compose file
+└── .gitignore
+```
 
 ### Important Files and Directories
 
