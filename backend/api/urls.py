@@ -17,6 +17,5 @@ urlpatterns = [
     path('auth/login/', views.login_view, name='login'),
     path('auth/register/', views.register_view, name='register'),
     path('me/', views.current_user, name='current_user'),
-    path('posts/manual/', views.manual_posts, name='manual_posts'),
     path('notifications/mark-all-read/', views.mark_all_notifications_read, name='mark_all_notifications_read'),
 ]

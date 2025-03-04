@@ -225,3 +225,18 @@ class CrawlHistoryViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['subreddit', 'status']
     permission_classes = [IsAdminUser]
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    """Get current user profile"""
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def mark_all_notifications_read(request):
+    """Mark all notifications as read for current user"""
+    Notification.objects.filter(user=request.user, read_status=False).update(read_status=True)
+    return Response({'status': 'All notifications marked as read'})
