@@ -21,7 +21,7 @@ const SubmitPostPage = ({ isLoggedIn }) => {
         const fetchSubreddits = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('/api/subreddits');
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/subreddits`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch subreddits');
                 }
@@ -99,7 +99,7 @@ const SubmitPostPage = ({ isLoggedIn }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('/api/posts/submit', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts/submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

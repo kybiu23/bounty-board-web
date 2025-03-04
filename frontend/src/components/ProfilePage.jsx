@@ -20,7 +20,7 @@ const ProfilePage = ({ isLoggedIn }) => {
                 const token = localStorage.getItem('token');
 
                 // Fetch user profile data
-                const profileResponse = await fetch('/api/user/profile', {
+                const profileResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/user/profile`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -34,7 +34,7 @@ const ProfilePage = ({ isLoggedIn }) => {
                 setUser(profileData);
 
                 // Fetch user notifications
-                const notificationsResponse = await fetch('/api/user/notifications', {
+                const notificationsResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/user/notifications`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -72,7 +72,7 @@ const ProfilePage = ({ isLoggedIn }) => {
     const markAsRead = async (notificationId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`/api/user/notifications/${notificationId}/read`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/user/notifications/${notificationId}/read`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`

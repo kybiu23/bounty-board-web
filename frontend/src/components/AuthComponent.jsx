@@ -55,7 +55,7 @@ const AuthComponent = ({ setIsLoggedIn }) => {
         setLoading(true);
 
         try {
-            const endpoint = isLogin ? '/api/login' : '/api/register';
+            const endpoint = isLogin ? `${process.env.REACT_APP_API_BASE_URL}/api/login` : `${process.env.REACT_APP_API_BASE_URL}/api/register`;
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -87,7 +87,7 @@ const AuthComponent = ({ setIsLoggedIn }) => {
 
     const handleSocialLogin = async (provider) => {
         // Redirect to OAuth provider login page
-        window.location.href = `/api/oauth/${provider}`;
+        window.location.href = `${process.env.REACT_APP_API_BASE_URL}/api/oauth/${provider}`;
     };
 
     return (
