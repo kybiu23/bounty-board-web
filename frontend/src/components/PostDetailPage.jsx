@@ -13,7 +13,7 @@ const PostDetailPage = () => {
             try {
                 setLoading(true);
                 // Fetch post data
-                const postResponse = await fetch(`/api/posts/${id}`);
+                const postResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts/${id}`);
                 if (!postResponse.ok) {
                     throw new Error('Failed to fetch post details');
                 }
@@ -21,7 +21,7 @@ const PostDetailPage = () => {
                 setPost(postData);
 
                 // Fetch comments for the post
-                const commentsResponse = await fetch(`/api/posts/${id}/comments`);
+                const commentsResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts/${id}/comments`);
                 if (!commentsResponse.ok) {
                     throw new Error('Failed to fetch comments');
                 }

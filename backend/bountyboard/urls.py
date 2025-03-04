@@ -17,8 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views as auth_views
+from django.shortcuts import redirect
+
+def redirect_to_admin(request):
+    return redirect('admin/')
 
 urlpatterns = [
+    path('', redirect_to_admin, name='index'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
