@@ -130,6 +130,20 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'])
+    def comments(self, request, pk=None):
+        """Get all comments for a specific post"""
+        post = self.get_object()
+        comments = Comment.objects.filter(post=post, parent_comment=None)  # Get top-level comments only
+
+        # Apply pagination
+        page = self.paginate_queryset(comments)
+        if page is not None:
+            serializer = CommentSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
 
 class CommentViewSet(viewsets.ModelViewSet):
     """API endpoint for comments"""
