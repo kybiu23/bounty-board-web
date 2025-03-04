@@ -27,24 +27,31 @@ cd bountyboard
 ```
 
 2. Start the Docker containers:
+If first time running, build the images:
+```bash
+docker compose build
+```
+
+Then start the containers: 
+
 ```bash
 docker compose up -d
 ```
 
 3. Apply Django migrations:
     ```bash
-    docker compose exec web python manage.py migrate
+    docker compose exec backend python manage.py migrate
     ```
 
     If there are changes in the models, you need to create and apply migrations:
     ```bash
-    docker compose exec web python manage.py makemigrations
-    docker compose exec web python manage.py migrate
+    docker compose exec backend python manage.py makemigrations
+    docker compose exec backend python manage.py migrate
     ```
 
 4. Create a superuser for the Django admin:
 ```bash
-docker compose exec web python manage.py createsuperuser
+docker compose exec backend python manage.py createsuperuser
 ```
 
 5. Access the application:
@@ -75,7 +82,7 @@ The Django application is located in the `backend/` directory. To make changes:
 
 To add a new app:
 ```bash
-docker compose exec web python manage.py startapp app_name
+docker compose exec backend python manage.py startapp app_name
 ```
 
 ### Database Changes
@@ -85,11 +92,11 @@ If you need to modify the database schema:
 1. Update models in Django
 2. Create migrations:
 ```bash
-docker compose exec web python manage.py makemigrations
+docker compose exec backend python manage.py makemigrations
 ```
 3. Apply migrations:
 ```bash
-docker compose exec web python manage.py migrate
+docker compose exec backend python manage.py migrate
 ```
 
 To reset the database (during development):
