@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'bountyboard.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgres://postgres:1@postgres:5432/postgres'),
+        default=os.environ.get('DATABASE_URL', 'postgres://postgres:1@postgres:5433/postgres'),
         conn_max_age=600
     )
 }
