@@ -51,6 +51,7 @@ services:
       - backend
     networks:
       - bountyboard-network
+#    command: npm start --host 0.0.0.0  # Explicitly bind to 0.0.0.0 inside the container
 
 networks:
   bountyboard-network:
