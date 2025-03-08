@@ -47,11 +47,14 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:8000/api
+      - HOST=0.0.0.0
+      - WDS_SOCKET_PORT=80
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
     depends_on:
       - backend
     networks:
       - bountyboard-network
-    command: npm start --host 0.0.0.0 --disable-host-check
+    command: npm start
 
 networks:
   bountyboard-network:

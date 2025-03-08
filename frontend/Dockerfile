@@ -16,4 +16,3 @@ EXPOSE 3000
 
 # Start the development server
 CMD ["npm", "start"]
-#CMD ["npm", "start", "--", "--host", "0.0.0.0"]
