@@ -46,9 +46,17 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link to="/" className="text-xl font-bold text-blue-600">
-                                BountyBoard
+                            <Link to="/" className="flex items-center">
+                                <img
+                                    className="h-8 w-auto mr-2"
+                                    src="/logo192.png"
+                                    alt="BountyBoard Logo"
+                                />
+                                <span className="text-xl font-bold text-blue-600">Bounty Board</span>
                             </Link>
+                            {/*<Link to="/" className="text-xl font-bold text-blue-600">*/}
+                            {/*    BountyBoard*/}
+                            {/*</Link>*/}
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                             <Link

@@ -147,7 +147,17 @@ insert test data
 cat test_data.sql | docker exec -i bounty-board-web-postgres-1 psql -U postgres -d postgres
 ```
 
+## Docker Cleanup Commands
 
+To clean up your Docker environment and free up space, you can use the following commands:
+
+- `docker system prune -a`
+   - This command removes all unused containers, networks, images (both dangling and unreferenced), and optionally, volumes. Use this command to free up space by removing all unused Docker objects.
+
+- `docker volume prune`
+   - This command removes all unused volumes. Use this command to free up space by removing volumes that are not used by any container.
+
+**Note:** These commands will permanently delete unused Docker objects and volumes. Make sure to review what will be removed before executing these commands.
 ## License
 
 This project is licensed under the MIT License.
