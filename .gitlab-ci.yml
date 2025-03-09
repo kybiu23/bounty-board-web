@@ -1,18 +1,28 @@
 stages:
   - mirror
 
-# Stage to mirror the repository to GitHub
 sync_to_github:
   stage: mirror
   script:
     - git remote add github https://oauth2:${GITHUB_TOKEN}@github.com/kybiu23/bounty-board-web.git
     - git fetch --all
+
+    - git config --global http.postBuffer 524288000
+    - git config --global http.lowSpeedLimit 1000
+    - git config --global http.lowSpeedTime 300
+    - git config --global pack.windowMemory "100m"
+    - git config --global pack.packSizeLimit "100m"
+
+    - git config --global protocol.version 2
+
     - |
       for branch in $(git branch -r | grep 'origin/' | grep -v '\->'); do
         branch_name=$(echo $branch | sed 's/origin\///');
-        git push --force github $branch:refs/heads/$branch_name;
+        echo "Pushing branch $branch_name..."
+        git push --force -v github $branch:refs/heads/$branch_name || echo "Failed to push $branch_name, continuing anyway";
       done
-    - git push --force --tags github  # Push tags if any
+
+    - git push --force --tags github || echo "Failed to push tags, continuing anyway"
   only:
     - branches
     - tags
