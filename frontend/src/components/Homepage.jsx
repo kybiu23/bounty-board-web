@@ -24,7 +24,17 @@ const Homepage = () => {
                 );
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch posts');
+                    if (response.status === 404) {
+                        // If page not found, set posts to empty array and adjust total pages
+                        setPosts([]);
+                        // Go back to the last valid page
+                        setPage(Math.max(1, page - 1));
+                        setError("No more posts available");
+                    } else {
+                        throw new Error('Failed to fetch posts');
+                    }
+                    setLoading(false);
+                    return;
                 }
 
                 const data = await response.json();
@@ -223,19 +233,37 @@ const Homepage = () => {
                                     Previous
                                 </button>
 
-                                {[...Array(totalPages).keys()].map((num) => (
-                                    <button
-                                        key={num + 1}
-                                        onClick={() => setPage(num + 1)}
-                                        className={`px-3 py-1 rounded-md ${
-                                            page === num + 1
-                                                ? 'bg-blue-600 text-white'
-                                                : 'bg-white text-gray-700 hover:bg-gray-50'
-                                        }`}
-                                    >
-                                        {num + 1}
-                                    </button>
-                                ))}
+                                {/* Show limited page numbers with ellipsis for large numbers */}
+                                {[...Array(totalPages).keys()].map((num) => {
+                                    const pageNum = num + 1;
+                                    // Only show first page, last page, current page and pages around current page
+                                    if (
+                                        pageNum === 1 ||
+                                        pageNum === totalPages ||
+                                        (pageNum >= page - 2 && pageNum <= page + 2)
+                                    ) {
+                                        return (
+                                            <button
+                                                key={pageNum}
+                                                onClick={() => setPage(pageNum)}
+                                                className={`px-3 py-1 rounded-md ${
+                                                    page === pageNum
+                                                        ? 'bg-blue-600 text-white'
+                                                        : 'bg-white text-gray-700 hover:bg-gray-50'
+                                                }`}
+                                            >
+                                                {pageNum}
+                                            </button>
+                                        );
+                                    } else if (
+                                        (pageNum === page - 3 && pageNum > 1) ||
+                                        (pageNum === page + 3 && pageNum < totalPages)
+                                    ) {
+                                        // Add ellipsis
+                                        return <span key={pageNum} className="px-2">...</span>;
+                                    }
+                                    return null;
+                                })}
 
                                 <button
                                     onClick={() => setPage(Math.min(totalPages, page + 1))}
